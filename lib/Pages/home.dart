@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bucklite/Functions/crud.dart';
 import 'package:bucklite/Pages/ground.dart';
@@ -8,10 +6,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import '../Functions/color.dart';
-import 'Dash.dart';
+
 
 class Home extends StatefulWidget {
   const Home({Key? key, this.crudact = false}) : super(key: key);
@@ -284,6 +280,17 @@ class _HomeState extends State<Home> {
           children: [
             Container(
               height:400/1.5 ,
+              child: widget.crudact?Align(alignment: Alignment.topRight,child:IconButton(
+                  splashRadius: 1,
+                  iconSize: 25,
+                  onPressed: () {
+                  showAlertDialog2edit(context, sub);
+                  },
+                  icon: Icon(
+                    Icons.build_circle_outlined,
+                    color: Palette.main,
+                    size: 30,
+                  )) ,):Container(),
             ),
             Container(
               decoration: BoxDecoration(

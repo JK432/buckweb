@@ -54,5 +54,6 @@ class Palette {
   static const Color l7 = Color(0xff74249d);
   static const Color l8 = Color(0xff912779);
   static const Color mainthf = Color(0xc0b64e0d);
+  static const Color alert = Color(0xfffd0202);
 
 }

@@ -63,31 +63,29 @@ class Question {
   );
 }
 
-// Future Deletequestion({required String docid, required id,required String url,})async{
-//   try{
-//     Deletefile(url, docid, id);
-//   }catch(e){}
-//   final qp = FirebaseFirestore.instance
-//       .collection("quiz")
-//       .doc(docid)
-//       .collection("questions")
-//       .doc(id);
-//   try{
-//     qp.delete();
-//   }catch(e){}
-//
-// }
-//
-//
-// Future Deletequestioncollection({required String docid})async{
-//
-//   final qp = FirebaseFirestore.instance
-//       .collection("quiz")
-//       .doc(docid);
-//
-//   try{
-//     qp.delete();
-//   }catch(e){}
+Future Deletequestion({required String docid, required id})async{
+
+  final qp = FirebaseFirestore.instance
+      .collection("subject")
+      .doc(docid)
+      .collection("questions")
+      .doc(id);
+  try{
+    qp.delete();
+  }catch(e){}
+
+}
+
+
+Future Deletequestioncollection({required String docid})async {
+  final qp = FirebaseFirestore.instance
+      .collection("subject")
+      .doc(docid);
+
+  try {
+    qp.delete();
+  } catch (e) {}
+}
 
 Future Createsub({required String title, required String desc,required String url}) async {
   String id = DateTime.now().millisecondsSinceEpoch.toString();
@@ -102,6 +100,23 @@ Future Createsub({required String title, required String desc,required String ur
   final json = sub.toJson();
   await subject.set(json).then((value) => null);
 }
+
+
+Future updatesub({required String title, required String desc,required String url,required String id}) async {
+  //String id = DateTime.now().millisecondsSinceEpoch.toString();
+
+  final subject = FirebaseFirestore.instance.collection("subject").doc(id);
+  final sub = Subject(
+    title: title,
+    desc: desc,
+    id: id,
+    url: url,
+  );
+  final json = sub.toJson();
+  await subject.update(json).then((value) => null);
+}
+
+
 
 Future Addquestion(
     {
@@ -127,6 +142,41 @@ Future Addquestion(
   final json = qst.toJson();
   await quest.set(json).then((value) => null);
 }
+
+
+
+
+Future Updatequestion(
+    {
+      required String question,
+      required String date,
+      required String ans,
+      required String auth,
+      required String docid,
+      required String id
+    }) async {
+  //String id = DateTime.now().millisecondsSinceEpoch.toString();
+  final quest = FirebaseFirestore.instance
+      .collection("subject")
+      .doc(docid)
+      .collection("questions")
+      .doc(id);
+  final qst = Question(
+    id: id,
+    question: question,
+    ans: ans,
+    auth : auth,
+    date: date,
+  );
+  final json = qst.toJson();
+  await quest.update(json).then((value) => null);
+}
+
+
+
+
+
+
 
 Stream<List<Subject>> readSub() =>
     FirebaseFirestore.instance.collection('subject').snapshots().map((snaphot) =>

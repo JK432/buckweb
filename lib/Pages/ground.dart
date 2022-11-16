@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Functions/color.dart';
+import '../Functions/misfun.dart';
 
 class Ground extends StatefulWidget {
   const Ground({Key? key, this.crudact = false, required this.docid})
@@ -21,7 +22,7 @@ class _GroundState extends State<Ground> {
     return Scaffold(
       floatingActionButton: widget.crudact
           ? FloatingActionButton(
-              child: Icon(
+              child: const Icon(
                 Icons.add,
                 size: 30,
               ),
@@ -35,17 +36,20 @@ class _GroundState extends State<Ground> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            IconButton(
-                splashRadius: 1,
-                iconSize: 25,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(
-                  Icons.keyboard_backspace_rounded,
-                  color: Palette.main,
-                  size: 30,
-                )),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: IconButton(
+                  splashRadius: 1,
+                  iconSize: 25,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Palette.main,
+                    size: 30,
+                  )),
+            ),
             Container(
               width: MediaQuery.of(context).size.width,
               child: StreamBuilder<List<Question>>(
@@ -70,7 +74,7 @@ class _GroundState extends State<Ground> {
                                         fontSize: 30.0, color: Palette.textd),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                               ] +
@@ -140,17 +144,36 @@ class _GroundState extends State<Ground> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Palette.textl),
           child: ExpansionTile(
+
             iconColor: Palette.textd,
             collapsedTextColor: Palette.textd,
             textColor: Palette.textd,
-            title: Container(
-              child: Text(que.question,
-                  style: GoogleFonts.signikaNegative(
-                      fontSize: 30.0, color: Palette.textd)),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Text(que.question,
+                      style: GoogleFonts.signikaNegative(
+                          fontSize: 30.0, color: Palette.textd)),
+                ),
+                widget.crudact?Align(alignment: Alignment.topRight,child:IconButton(
+                    splashRadius: 1,
+                    iconSize: 30,
+                    onPressed: () {
+                      showAlertDialog3edit(context,widget.docid, que);
+                    },
+                    icon: Icon(
+                      Icons.build_circle_outlined,
+                      color: Palette.textd,
+                      size: 30,
+                    )) ,):Container(height: 2,),
+
+              ],
             ),
             subtitle: Container(
-              child: Text(que.auth+"  .  "+ que.date ,  style: GoogleFonts.signikaNegative(
-                  fontSize: 15.0, color: Palette.textd)),
+              child: Text(que.auth + "  .  " + timeAgo(DateTime.parse(que.date)),
+                  style: GoogleFonts.signikaNegative(
+                      fontSize: 15.0, color: Palette.textd)),
             ),
             children: [
               Column(
@@ -162,12 +185,13 @@ class _GroundState extends State<Ground> {
                       padding: const EdgeInsets.all(15.0),
                       child: Container(
                         child: SelectableText(
-                          cursorHeight: 5.0,
+                            cursorHeight: 5.0,
                             showCursor: true,
                             cursorColor: Palette.main,
                             cursorWidth: 5.0,
-                            que.ans,style: GoogleFonts.robotoMono(
-                            fontSize: 15.0, color: Palette.textd)),
+                            que.ans,
+                            style: GoogleFonts.robotoMono(
+                                fontSize: 15.0, color: Palette.textd)),
                       ),
                     ),
                   ),
