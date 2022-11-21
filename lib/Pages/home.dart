@@ -76,7 +76,10 @@ class _HomeState extends State<Home> {
                             Text(
                               "#BUCK",
                               style: GoogleFonts.anton(
-                                  color: Palette.textd, fontSize: 200),
+                                  color: Palette.textd,
+                                  fontSize:width>491?200:width/4,
+
+                              ),
                             ),
                             AnimatedTextKit(
                               pause: const Duration(milliseconds: 2000),

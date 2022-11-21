@@ -2,10 +2,12 @@ import 'package:bucklite/Functions/crud.dart';
 import 'package:bucklite/Widgets/alert.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Functions/color.dart';
 import '../Functions/misfun.dart';
+import '../Widgets/button.dart';
 
 class Ground extends StatefulWidget {
   const Ground({Key? key, this.crudact = false, required this.docid})
@@ -195,6 +197,18 @@ class _GroundState extends State<Ground> {
                       ),
                     ),
                   ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Align(
+          alignment: Alignment.bottomRight,
+          child: InkWell(
+
+            onTap: ()  async{
+              await Clipboard.setData(ClipboardData(text: que.ans));
+            },
+            child:const RectButton(title: "Copy") ,),
+        ),
+      )
                 ],
               )
             ],
