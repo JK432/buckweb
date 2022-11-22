@@ -60,8 +60,11 @@ class _GroundState extends State<Ground> {
                   if (snapshot.hasData) {
                     final quiz = snapshot.data;
                     if (quiz == null || quiz.isEmpty) {
-                      return const Center(
-                        child: Text("No subjects"),
+                      return Center(
+                        child: Container(
+
+                          child: Center(child: Text("No docs till now",style: GoogleFonts.signikaNegative(
+                            fontSize: 30.0, color: Palette.textd))),),
                       );
                     } else {
                       return Center(
