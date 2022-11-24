@@ -179,9 +179,9 @@ Future Updatequestion(
 
 
 Stream<List<Subject>> readSub() =>
-    FirebaseFirestore.instance.collection('subject').snapshots().map((snaphot) =>
+    FirebaseFirestore.instance.collection('subject').orderBy("id",descending: true).snapshots().map((snaphot) =>
         snaphot.docs.map((doc) => Subject.fromJson(doc.data())).toList());
 
 Stream<List<Question>> readQus(String docid) =>
-    FirebaseFirestore.instance.collection('subject').doc(docid).collection('questions').snapshots().map((snaphot) =>
+    FirebaseFirestore.instance.collection('subject').doc(docid).collection('questions').orderBy("id",descending: true).snapshots().map((snaphot) =>
         snaphot.docs.map((doc) => Question.fromJson(doc.data())).toList());

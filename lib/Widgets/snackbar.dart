@@ -31,4 +31,29 @@ class snackbar{
     );
   }
 
+
+
+
+  SnackBar snackBarinfo(String msg){
+
+    return SnackBar(
+      //width: 300,
+      behavior: SnackBarBehavior.fixed,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      backgroundColor: Palette.mainthf,
+      content: msg == null || msg.isEmpty?Text("", style: GoogleFonts.signikaNegative(
+          fontSize: 25, color: Palette.textd, height: 1),):Text(msg,      style: GoogleFonts.signikaNegative(
+          fontSize: 25, color: Palette.textd, height: 1),),
+    );
+  }
+
+
+
+
+
+
+
+
+
 }

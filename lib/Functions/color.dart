@@ -52,8 +52,9 @@ class Palette {
   static const Color l5 = Color(0xff427396);
   static const Color l6 = Color(0xff8058b0);
   static const Color l7 = Color(0xff74249d);
-  static const Color l8 = Color(0xff912779);
+  static const Color l8 = Color(0xff988576);
   static const Color mainthf = Color(0xc0b64e0d);
   static const Color alert = Color(0xfffd0202);
+  static const Color infomsg = Color(0xc0b64e0d);
 
 }

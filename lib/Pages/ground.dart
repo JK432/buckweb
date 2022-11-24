@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:bucklite/Widgets/snackbar.dart';
 import '../Functions/color.dart';
 import '../Functions/misfun.dart';
 import '../Widgets/button.dart';
@@ -63,7 +63,7 @@ class _GroundState extends State<Ground> {
                       return Center(
                         child: Container(
 
-                          child: Center(child: Text("No docs till now",style: GoogleFonts.signikaNegative(
+                          child: Center(child: Text("Sorry! No docs till now.",style: GoogleFonts.signikaNegative(
                             fontSize: 30.0, color: Palette.textd))),),
                       );
                     } else {
@@ -157,9 +157,12 @@ class _GroundState extends State<Ground> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  child: Text(que.question,
-                      style: GoogleFonts.signikaNegative(
-                          fontSize: 30.0, color: Palette.textd)),
+                  child: Expanded(
+                    child: Text(que.question,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.signikaNegative(
+                            fontSize: 30.0, color: Palette.textd)),
+                  ),
                 ),
                 widget.crudact?Align(alignment: Alignment.topRight,child:IconButton(
                     splashRadius: 1,
@@ -207,7 +210,7 @@ class _GroundState extends State<Ground> {
           child: InkWell(
 
             onTap: ()  async{
-              await Clipboard.setData(ClipboardData(text: que.ans));
+              await Clipboard.setData(ClipboardData(text: que.ans)).then((value) => ScaffoldMessenger.of(context).showSnackBar(snackbar().snackBarinfo(que.question + "Copied To Clipboard")));
             },
             child:const RectButton(title: "Copy") ,),
         ),

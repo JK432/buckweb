@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                               onTap: () {
-                                print("Tap Event");
+
                               },
                             ),
                           ],
@@ -196,7 +196,7 @@ class _HomeState extends State<Home> {
                           return  Center(
                             child:  Container(
 
-                              child: Center(child: Text("No docs till now",style: GoogleFonts.signikaNegative(
+                              child: Center(child: Text("Sorry! No docs till now.",style: GoogleFonts.signikaNegative(
                                   fontSize: 30.0, color: Palette.textd))),),
                           );
                         } else {
