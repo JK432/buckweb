@@ -83,7 +83,7 @@ class _GroundState extends State<Ground> {
                                   height: 20,
                                 ),
                               ] +
-                              quiz.map(buildItem).toList(),
+                              quiz.map(buildItem).toList() + [SizedBox(height: 30,)],
                         ),
                       );
                       // return StaggeredGridView.count(

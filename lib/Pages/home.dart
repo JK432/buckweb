@@ -212,7 +212,7 @@ class _HomeState extends State<Home> {
                                   runSpacing: 20,
                                   children:  quiz.map(buildGridItem).toList(),
                                 ),
-                              ],
+                              ] + [SizedBox(height: 30,)],
                             ),
                           );
                           // return StaggeredGridView.count(
