@@ -8,11 +8,13 @@ class Subject {
   String url;
   String title;
   String desc;
+  bool vis;
   Subject({
     this.id = "",
     this.url ="",
     this.title = "",
     this.desc = "",
+    this.vis = true,
   });
 
   Map<String, dynamic> toJson() => {
@@ -20,12 +22,14 @@ class Subject {
     'title': title,
     'desc': desc,
     'url':url,
+    'vis':vis,
   };
   static Subject fromJson(Map<String, dynamic> Json) => Subject(
     id: Json['id'],
     desc: Json['desc'],
     title: Json['title'],
-    url:Json['url']
+    url:Json['url'],
+    vis:Json['vis']
   );
 }
 
@@ -87,7 +91,7 @@ Future Deletequestioncollection({required String docid})async {
   } catch (e) {}
 }
 
-Future Createsub({required String title, required String desc,required String url}) async {
+Future Createsub({required String title, required String desc,required String url,required bool vis}) async {
   String id = DateTime.now().millisecondsSinceEpoch.toString();
 
   final subject = FirebaseFirestore.instance.collection("subject").doc(id);
@@ -96,13 +100,14 @@ Future Createsub({required String title, required String desc,required String ur
     desc: desc,
     id: id,
     url: url,
+    vis: vis,
   );
   final json = sub.toJson();
   await subject.set(json).then((value) => null);
 }
 
 
-Future updatesub({required String title, required String desc,required String url,required String id}) async {
+Future updatesub({required String title, required String desc,required String url,required String id,required bool vis }) async {
   //String id = DateTime.now().millisecondsSinceEpoch.toString();
 
   final subject = FirebaseFirestore.instance.collection("subject").doc(id);
@@ -111,6 +116,7 @@ Future updatesub({required String title, required String desc,required String ur
     desc: desc,
     id: id,
     url: url,
+    vis: vis,
   );
   final json = sub.toJson();
   await subject.update(json).then((value) => null);
@@ -124,7 +130,8 @@ Future Addquestion(
       required String date,
       required String ans,
       required String auth,
-      required String docid
+      required String docid,
+
     }) async {
   String id = DateTime.now().millisecondsSinceEpoch.toString();
   final quest = FirebaseFirestore.instance

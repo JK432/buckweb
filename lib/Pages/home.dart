@@ -17,6 +17,7 @@ class Home extends StatefulWidget {
 }
 
 String adminmsg = "Hai Buck,\nPlease login  ";
+Widget m = Container();
 List<Color> col = [Palette.l1, Palette.l2, Palette.l3, Palette.l4, Palette.l5];
 
 class _HomeState extends State<Home> {
@@ -210,7 +211,7 @@ class _HomeState extends State<Home> {
                                 Wrap(
                                   spacing: 20,
                                   runSpacing: 20,
-                                  children:  quiz.map(buildGridItem).toList(),
+                                  children:  quiz.map(buildGridItem).toList().toSet().difference([m].toSet()).toList(),
                                 ),
                               ] + [SizedBox(height: 30,)],
                             ),
@@ -279,24 +280,130 @@ class _HomeState extends State<Home> {
 
   Widget buildGridItem(Subject sub) {
 
+if(sub.vis){
+
+  return GestureDetector(
+  child: Container(
+
+    child: Column(
+      children: [
+        Container(
+          height:400/1.5 ,
+          child: widget.crudact?Align(alignment: Alignment.topRight,child:IconButton(
+              splashRadius: 1,
+              iconSize: 25,
+              onPressed: () {
+                showAlertDialog2edit(context, sub);
+              },
+              icon: Icon(
+                Icons.build_circle_outlined,
+                color: Palette.main,
+                size: 30,
+              )) ,):Container(),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: Palette.mainthf,
+              borderRadius: BorderRadius.only(bottomLeft:Radius.circular(10) ,bottomRight:Radius.circular(10))
+          ),
+          width: 300,
+          height: 400 - (400/1.5 ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(sub.title,style: GoogleFonts.signikaNegative(
+                    fontSize: 40,
+                    color: Palette.textd,
+                    height: 1),),
+                Text(sub.desc,style: GoogleFonts.signikaNegative(
+                    fontSize: 23,
+                    color: Palette.textd,
+                    height: 1),)
+              ],
+
+            ),
+          ),)
+      ],
+    ),
+    decoration: BoxDecoration(
+      image:DecorationImage(image:CachedNetworkImageProvider(errorListener: (){sub.url=" ";print("fixed");},sub.url),fit: BoxFit.cover),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    height: 400,
+    width:300,
+  ),
+  onTap: (){
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => widget.crudact?Ground(docid: sub.id,crudact: true,): Ground(docid: sub.id,crudact: false,) ));
+
+  },
+);
+
+
+
+}
+else{
+
+  if(widget.crudact){
     return GestureDetector(
       child: Container(
 
         child: Column(
           children: [
             Container(
-              height:400/1.5 ,
-              child: widget.crudact?Align(alignment: Alignment.topRight,child:IconButton(
-                  splashRadius: 1,
-                  iconSize: 25,
-                  onPressed: () {
-                  showAlertDialog2edit(context, sub);
-                  },
-                  icon: Icon(
-                    Icons.build_circle_outlined,
-                    color: Palette.main,
-                    size: 30,
-                  )) ,):Container(),
+              height:400/1.5,
+              child: Container(
+
+
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    textBaseline: TextBaseline.ideographic,
+
+                  children: [
+                  SizedBox(width: 8,),
+                  Container(child:sub.vis?Container():Container(
+
+                    decoration: BoxDecoration(
+                        color: Palette.mainthf,borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Draft",style: GoogleFonts.signikaNegative(
+
+
+
+                              fontSize: 30,
+                              color: Palette.textd,
+                              height: 1),),
+                    ),
+                  )),
+
+                  Expanded(child: Container()),
+
+                  widget.crudact?Align(alignment: Alignment.topRight,child:IconButton(
+                      splashRadius: 1,
+                      iconSize: 25,
+                      onPressed: () {
+                        showAlertDialog2edit(context, sub);
+                      },
+                      icon: Icon(
+                        Icons.build_circle_outlined,
+                        color: Palette.main,
+                        size: 30,
+                      )) ,):Container(),
+
+
+
+
+
+                ],),
+              )
             ),
             Container(
               decoration: BoxDecoration(
@@ -340,6 +447,11 @@ class _HomeState extends State<Home> {
 
       },
     );
+  }else{
+    return m;
+  }
+}
+
   }
 
 

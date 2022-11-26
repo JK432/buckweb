@@ -102,7 +102,18 @@ class _DashState extends State<Dash> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          // Widget m = Container();
+                          // List<Widget> l1 =[m,Container(),SizedBox()];
+                          // l1.remove(m);
+                          // print(l1);
+// List <Widget> l =[Container(),Size,,d,Box()];
+// print(l);
+// l.remove(Container());
+// print(l);
+                         //print([Container(),Column()].toSet().difference([Container()].toSet()));// [Container(),Column()].toSet().difference([Container()].toSet()).toList();
+
+                        },
                         child: const RectButton(title: "Buck Chat",),
                       ),
                     ),

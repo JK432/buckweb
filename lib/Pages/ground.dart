@@ -210,7 +210,7 @@ class _GroundState extends State<Ground> {
           child: InkWell(
 
             onTap: ()  async{
-              await Clipboard.setData(ClipboardData(text: que.ans)).then((value) => ScaffoldMessenger.of(context).showSnackBar(snackbar().snackBarinfo(que.question + "Copied To Clipboard")));
+              await Clipboard.setData(ClipboardData(text: que.ans)).then((value) => ScaffoldMessenger.of(context).showSnackBar(snackbar().snackBarinfo(que.question + " Copied To Clipboard")));
             },
             child:const RectButton(title: "Copy") ,),
         ),

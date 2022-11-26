@@ -8,7 +8,6 @@ import '../Functions/crud.dart';
 import 'button.dart';
 
 
-
   showAlertDialog(BuildContext context) {
     GlobalKey<FormState> formKey2 = GlobalKey();
     String email = "";
@@ -129,12 +128,14 @@ import 'button.dart';
     );
   }
 
+//ADD SUBJECT
 
 showAlertDialog2(BuildContext context) {
   GlobalKey<FormState> formKey2 = GlobalKey();
   String title = "";
   String desc = "";
   String url = "";
+  bool vis = true;
 
   Widget cancelButton = TextButton(
     child: Text("Cancel",style: GoogleFonts.signikaNegative(
@@ -146,139 +147,163 @@ showAlertDialog2(BuildContext context) {
   Widget continueButton = InkWell(
     onTap: ()  {
       if (formKey2.currentState!.validate()) {
-        Createsub(title: title,desc: desc,url: url).then((value) {snackbar().snackBarSucess("Added");Navigator.of(context).pop();});
+        Createsub(title: title,desc: desc,url: url,vis: vis).then((value) {snackbar().snackBarSucess("Added");Navigator.of(context).pop();});
       }
     },
     child:const RectButton(title: "Add") ,) ;
 
-  AlertDialog alert = AlertDialog(
-    backgroundColor: Palette.bgl,
-    title:  Text("Add Subject!",style: GoogleFonts.signikaNegative(
-        fontSize: 23.0, color: Palette.textd),),
-    content: Container(
-      child: Form(
-          key: formKey2,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                  style: GoogleFonts.signikaNegative(
-                      fontSize: 23, color: Palette.textd, height: 0.99),
-                  cursorColor: Palette.main,
-                  decoration: InputDecoration(
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    border: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorStyle: GoogleFonts.signikaNegative(
-                        fontSize: 15, color: Palette.main, height: 0.99),
-                    focusColor: Palette.main,
-                    fillColor: Palette.main,
-                    hintText: "Sub Name:",
-                    hintStyle: GoogleFonts.signikaNegative(
+  StatefulWidget alert = StatefulBuilder(
+      builder: (context, setState) {
+    return AlertDialog(
+      backgroundColor: Palette.bgl,
+      title:  Text("Add Subject!",style: GoogleFonts.signikaNegative(
+          fontSize: 23.0, color: Palette.textd),),
+      content: Container(
+        child: Form(
+            key: formKey2,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                    style: GoogleFonts.signikaNegative(
                         fontSize: 23, color: Palette.textd, height: 0.99),
-                  ),
-                  validator: (input) {
-                    if (input == null || input.isEmpty) {
-                      return 'Please enter the Name';
-                    } else {
-                      title = input;
-                    }
-                    return null;
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                  style: GoogleFonts.signikaNegative(
-                      fontSize: 23, color: Palette.textd, height: 0.99),
+                    cursorColor: Palette.main,
+                    decoration: InputDecoration(
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      contentPadding: const EdgeInsets.all(0),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorStyle: GoogleFonts.signikaNegative(
+                          fontSize: 15, color: Palette.main, height: 0.99),
+                      focusColor: Palette.main,
+                      fillColor: Palette.main,
+                      hintText: "Sub Name:",
+                      hintStyle: GoogleFonts.signikaNegative(
+                          fontSize: 23, color: Palette.textd, height: 0.99),
+                    ),
+                    validator: (input) {
+                      if (input == null || input.isEmpty) {
+                        return 'Please enter the Name';
+                      } else {
+                        title = input;
+                      }
+                      return null;
+                    }),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                    style: GoogleFonts.signikaNegative(
+                        fontSize: 23, color: Palette.textd, height: 0.99),
 
-                  cursorColor: Palette.main,
-                  decoration: InputDecoration(
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
+                    cursorColor: Palette.main,
+                    decoration: InputDecoration(
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      contentPadding: const EdgeInsets.all(0),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorStyle: GoogleFonts.signikaNegative(
+                          fontSize: 15, color: Palette.main, height: 0.99),
+                      focusColor: Palette.main,
+                      fillColor: Palette.main,
+                      hintText: "Description",
+                      hintStyle: GoogleFonts.signikaNegative(
+                          fontSize: 23, color: Palette.textd, height: 0.99),
                     ),
-                    border: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorStyle: GoogleFonts.signikaNegative(
-                        fontSize: 15, color: Palette.main, height: 0.99),
-                    focusColor: Palette.main,
-                    fillColor: Palette.main,
-                    hintText: "Description",
-                    hintStyle: GoogleFonts.signikaNegative(
-                        fontSize: 23, color: Palette.textd, height: 0.99),
-                  ),
-                  validator: (input) {
-                    if (input == null || input.isEmpty) {
-                      return 'Enter some Description';
-                    } else {
-                      desc = input;
-                    }
-                    return null;
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
 
-              TextFormField(
-                initialValue:"https://www.mycomputercareer.edu/wp-content/uploads/2020/05/The-Guide-to-Information-Technology-and-Its-Role-During-COVID-19.jpg",
-                  style: GoogleFonts.signikaNegative(
-                      fontSize: 23, color: Palette.textd, height: 0.99),
-                  cursorColor: Palette.main,
-                  decoration: InputDecoration(
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    border: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorStyle: GoogleFonts.signikaNegative(
-                        fontSize: 15, color: Palette.main, height: 0.99),
-                    focusColor: Palette.main,
-                    fillColor: Palette.main,
-                    hintText: "Img Url:",
-                    hintStyle: GoogleFonts.signikaNegative(
+                    validator: (input) {
+                      if (input == null || input.isEmpty) {
+                        return 'Enter some Description';
+                      } else {
+                        desc = input;
+                      }
+                      return null;
+                    }),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                TextFormField(
+                  initialValue:"https://www.mycomputercareer.edu/wp-content/uploads/2020/05/The-Guide-to-Information-Technology-and-Its-Role-During-COVID-19.jpg",
+                    style: GoogleFonts.signikaNegative(
                         fontSize: 23, color: Palette.textd, height: 0.99),
-                  ),
-                  validator: (input) {
-                    if (input == null || input.isEmpty) {
-                      return 'Please a url';
-                    } else {
-                      url = input;
-                    }
-                    return null;
-                  }),
-            ],
-          )),
-    ),
-    actions: [
-      cancelButton,
-      continueButton,
-    ],
+                    cursorColor: Palette.main,
+                    decoration: InputDecoration(
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      contentPadding: const EdgeInsets.all(0),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorStyle: GoogleFonts.signikaNegative(
+                          fontSize: 15, color: Palette.main, height: 0.99),
+                      focusColor: Palette.main,
+                      fillColor: Palette.main,
+                      hintText: "Img Url:",
+                      hintStyle: GoogleFonts.signikaNegative(
+                          fontSize: 23, color: Palette.textd, height: 0.99),
+                    ),
+                    validator: (input) {
+                      if (input == null || input.isEmpty) {
+                        return 'Please a url';
+                      } else {
+                        url = input;
+                      }
+                      return null;
+                    }),
+                SizedBox(height: 20,),
+                Row(
+                  children: [
+                   Text( "Is Vissible ",
+                    style:
+                    GoogleFonts.signikaNegative(
+                        fontSize: 23, color: Palette.textd, height: 0.99),),
+                    Checkbox(
+                      value: vis,
+                      onChanged:( value) {
+                        setState(() {
+                          vis = value!;
+                        });
+
+
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            )),
+      ),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );}
   );
 
   showDialog(
@@ -295,12 +320,13 @@ showAlertDialog2(BuildContext context) {
 
 
 
-
+//EDIT SUBJECT
 showAlertDialog2edit(BuildContext context,Subject sub) {
   GlobalKey<FormState> formKey2 = GlobalKey();
   String title = "";
   String desc = "";
   String url = "";
+  bool vis = sub.vis;
 
   Widget cancelButton = TextButton(
     child: Text("Cancel",style: GoogleFonts.signikaNegative(
@@ -312,7 +338,7 @@ showAlertDialog2edit(BuildContext context,Subject sub) {
   Widget continueButton = InkWell(
     onTap: ()  {
       if (formKey2.currentState!.validate()) {
-        updatesub(title: title, desc: desc, url: url, id: sub.id).then((value) {snackbar().snackBarSucess("Updated");Navigator.of(context).pop();});
+        updatesub(title: title, desc: desc, url: url, id: sub.id,vis: vis).then((value) {snackbar().snackBarSucess("Updated");Navigator.of(context).pop();});
         //Createsub(title: title,desc: desc,url: url).then((value) {snackbar().snackBarSucess("Added");Navigator.of(context).pop();});
       }
     },
@@ -328,144 +354,178 @@ showAlertDialog2edit(BuildContext context,Subject sub) {
     child:const RectButton(title: "Delete") ,);
 
 
-  AlertDialog alert = AlertDialog(
-    backgroundColor: Palette.bgl,
-    title:  Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text("Update Subject!",style: GoogleFonts.signikaNegative(
-            fontSize: 23.0, color: Palette.textd),),
-        deleteButton
+
+  StatefulWidget alert = StatefulBuilder(builder: (context, setState) {
+
+    return AlertDialog(
+      backgroundColor: Palette.bgl,
+      title:  Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text("Update Subject!",style: GoogleFonts.signikaNegative(
+              fontSize: 23.0, color: Palette.textd),),
+          deleteButton
+        ],
+      ),
+      content: Container(
+        child: Form(
+            key: formKey2,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                    initialValue: sub.title,
+                    style: GoogleFonts.signikaNegative(
+                        fontSize: 23, color: Palette.textd, height: 0.99),
+                    cursorColor: Palette.main,
+                    decoration: InputDecoration(
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      contentPadding: const EdgeInsets.all(0),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorStyle: GoogleFonts.signikaNegative(
+                          fontSize: 15, color: Palette.main, height: 0.99),
+                      focusColor: Palette.main,
+                      fillColor: Palette.main,
+                      hintText: "Sub Name:",
+                      hintStyle: GoogleFonts.signikaNegative(
+                          fontSize: 23, color: Palette.textd, height: 0.99),
+                    ),
+                    validator: (input) {
+                      if (input == null || input.isEmpty) {
+                        return 'Please enter the Sub Name';
+                      } else {
+                        title = input;
+                      }
+                      return null;
+                    }),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                    initialValue: sub.desc,
+                    style: GoogleFonts.signikaNegative(
+                        fontSize: 23, color: Palette.textd, height: 0.99),
+
+                    cursorColor: Palette.main,
+                    decoration: InputDecoration(
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      contentPadding: const EdgeInsets.all(0),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorStyle: GoogleFonts.signikaNegative(
+                          fontSize: 15, color: Palette.main, height: 0.99),
+                      focusColor: Palette.main,
+                      fillColor: Palette.main,
+                      hintText: "Description",
+                      hintStyle: GoogleFonts.signikaNegative(
+                          fontSize: 23, color: Palette.textd, height: 0.99),
+                    ),
+                    validator: (input) {
+                      if (input == null || input.isEmpty) {
+                        return 'Enter some Description';
+                      } else {
+                        desc = input;
+                      }
+                      return null;
+                    }),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                TextFormField(
+                    initialValue:sub.url,
+                    style: GoogleFonts.signikaNegative(
+                        fontSize: 23, color: Palette.textd, height: 0.99),
+                    cursorColor: Palette.main,
+                    decoration: InputDecoration(
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.textd),
+                      ),
+                      contentPadding: const EdgeInsets.all(0),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Palette.main),
+                      ),
+                      errorStyle: GoogleFonts.signikaNegative(
+                          fontSize: 15, color: Palette.main, height: 0.99),
+                      focusColor: Palette.main,
+                      fillColor: Palette.main,
+                      hintText: "Img Url:",
+                      hintStyle: GoogleFonts.signikaNegative(
+                          fontSize: 23, color: Palette.textd, height: 0.99),
+                    ),
+                    validator: (input) {
+                      if (input == null || input.isEmpty) {
+                        return 'Please a url';
+                      } else {
+                        url = input;
+                      }
+                      return null;
+                    }),
+
+
+
+                SizedBox(height: 20,),
+                Row(
+                  children: [
+                    Text( "Is Vissible ",
+                      style:
+                      GoogleFonts.signikaNegative(
+                          fontSize: 23, color: Palette.textd, height: 0.99),),
+                    Checkbox(
+                      value: vis,
+                      onChanged:( value) {
+                        setState(() {
+                          vis = value!;
+                        });
+
+
+                      },
+                    ),
+                  ],
+                ),
+
+
+
+
+
+              ],
+            )),
+      ),
+      actions: [
+        cancelButton,
+        continueButton,
       ],
-    ),
-    content: Container(
-      child: Form(
-          key: formKey2,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                initialValue: sub.title,
-                  style: GoogleFonts.signikaNegative(
-                      fontSize: 23, color: Palette.textd, height: 0.99),
-                  cursorColor: Palette.main,
-                  decoration: InputDecoration(
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    border: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorStyle: GoogleFonts.signikaNegative(
-                        fontSize: 15, color: Palette.main, height: 0.99),
-                    focusColor: Palette.main,
-                    fillColor: Palette.main,
-                    hintText: "Sub Name:",
-                    hintStyle: GoogleFonts.signikaNegative(
-                        fontSize: 23, color: Palette.textd, height: 0.99),
-                  ),
-                  validator: (input) {
-                    if (input == null || input.isEmpty) {
-                      return 'Please enter the Name';
-                    } else {
-                      title = input;
-                    }
-                    return null;
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                initialValue: sub.desc,
-                  style: GoogleFonts.signikaNegative(
-                      fontSize: 23, color: Palette.textd, height: 0.99),
+    );
 
-                  cursorColor: Palette.main,
-                  decoration: InputDecoration(
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    border: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorStyle: GoogleFonts.signikaNegative(
-                        fontSize: 15, color: Palette.main, height: 0.99),
-                    focusColor: Palette.main,
-                    fillColor: Palette.main,
-                    hintText: "Description",
-                    hintStyle: GoogleFonts.signikaNegative(
-                        fontSize: 23, color: Palette.textd, height: 0.99),
-                  ),
-                  validator: (input) {
-                    if (input == null || input.isEmpty) {
-                      return 'Enter some Description';
-                    } else {
-                      desc = input;
-                    }
-                    return null;
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
+  });
 
-              TextFormField(
-                  initialValue:sub.url,
-                  style: GoogleFonts.signikaNegative(
-                      fontSize: 23, color: Palette.textd, height: 0.99),
-                  cursorColor: Palette.main,
-                  decoration: InputDecoration(
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    border: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.textd),
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Palette.main),
-                    ),
-                    errorStyle: GoogleFonts.signikaNegative(
-                        fontSize: 15, color: Palette.main, height: 0.99),
-                    focusColor: Palette.main,
-                    fillColor: Palette.main,
-                    hintText: "Img Url:",
-                    hintStyle: GoogleFonts.signikaNegative(
-                        fontSize: 23, color: Palette.textd, height: 0.99),
-                  ),
-                  validator: (input) {
-                    if (input == null || input.isEmpty) {
-                      return 'Please a url';
-                    } else {
-                      url = input;
-                    }
-                    return null;
-                  }),
-            ],
-          )),
-    ),
-    actions: [
-      cancelButton,
-      continueButton,
-    ],
-  );
+
 
   showDialog(
     context: context,
@@ -953,3 +1013,4 @@ showAlertDialog3edit(BuildContext context,String docid,Question que) {
     },
   );
 }
+
