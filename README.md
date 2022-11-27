@@ -1,16 +1,10 @@
-# bucklite
+Buck is a code sharing platform build using flutter and firebase as backend  
+Here admins post code that are practiced during Lab hours, Admins have separate draft system where code can be stored without publishing
 
-Code share system
+  
+  
+  
 
-## Getting Started
+Hosted website : [Click here](https://bucklite-5b25c.firebaseapp.com/#/)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+div{ padding: 10px; color: antiquewhite; font-size:1.2em; font-family: 'Courier New', Courier, monospace; } a{ color: brown; font-size:1.2em; font-family: 'Courier New', Courier, monospace; }
