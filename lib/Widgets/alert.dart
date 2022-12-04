@@ -855,62 +855,93 @@ showAlertDialog3(BuildContext context,String docid) {
 
 
 showAlertDialog3edit(BuildContext context,String docid,Question que) {
-
   GlobalKey<FormState> formKey2 = GlobalKey();
-  String question = "";
-  String code = "";
+  String question = que.question;
+  String code = que.ans;
 
   Widget deleteButton = InkWell(
-    onTap: ()  {
+    onTap: () {
+
       Navigator.of(context).pop();
-      showAlertondelete3edit(context, que,docid);
-      // Deletequestioncollection(docid: sub.id).then((value) {snackbar().snackBarSucess("Deleted");Navigator.of(context).pop();});
+      showAlertondelete3edit(context, que, docid);
+      //Deletequestioncollection(docid: sub.id).then((value) {snackbar().snackBarSucess("Deleted");Navigator.of(context).pop();});
     },
-    child:const RectButton(title: "Delete") ,);
+    child: const RectButton(title: "Delete"),);
+
+
+
+
 
 
   Widget cancelButton = TextButton(
-    child: Text("Cancel",style: GoogleFonts.signikaNegative(
+    child: Text("Cancel", style: GoogleFonts.signikaNegative(
         fontSize: 23.0, color: Palette.textd),),
-    onPressed:  () {
+    onPressed: () {
       Navigator.of(context).pop();
     },
   );
   Widget continueButton = InkWell(
-    onTap: ()  {
+    onTap: () {
       if (formKey2.currentState!.validate()) {
-        Updatequestion(question:question ,date:DateTime.now().toString() ,ans:code ,docid:docid ,auth:Authentication().userData().email ,id:que.id );
+        Updatequestion(question: question,
+            date: DateTime.now().toString(),
+            ans: code,
+            docid: docid,
+            auth: Authentication()
+                .userData()
+                .email,
+            id: que.id);
         Navigator.of(context).pop();
       }
     },
-    child:const RectButton(title: "Update") ,) ;
+    child: const RectButton(title: "Update"),);
 
-  AlertDialog alert = AlertDialog(
+
+  StatefulWidget alert = StatefulBuilder(builder: (context, setState) {
+  return AlertDialog(
     backgroundColor: Palette.bgl,
-    title:  Row(
+    title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Update Question",style: GoogleFonts.signikaNegative(
+        Text("Update Question", style: GoogleFonts.signikaNegative(
             fontSize: 23.0, color: Palette.textd),),
+    Expanded(child: Container(),),
+    SizedBox(width: 5,),
+    TextButton(
+  child: Text("Clear Code", style: GoogleFonts.signikaNegative(
+      fontSize: 23.0, color: Palette.textd),),
+    onPressed: () {
+    setState(() {
+    code="";
+    });
+    print(code);
+    },
+    ),
         deleteButton
       ],
     ),
     content: Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       child: Form(
           key: formKey2,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                initialValue: que.question,
+                  initialValue: question,
                   maxLines: 2,
                   style: GoogleFonts.signikaNegative(
                       fontSize: 23, color: Palette.textd, height: 0.99),
                   cursorColor: Palette.main,
                   decoration: InputDecoration(
-                    enabledBorder:  const OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                       borderSide:
                       BorderSide(color: Palette.textd, width: 2.0),
                     ),
@@ -919,7 +950,7 @@ showAlertDialog3edit(BuildContext context,String docid,Question que) {
                       BorderSide(color: Colors.grey, width: 2.0),
                     ),
                     contentPadding: const EdgeInsets.all(10),
-                    focusedBorder:  const OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide:
                       BorderSide(color: Palette.main, width: 2.0),
                     ),
@@ -939,17 +970,19 @@ showAlertDialog3edit(BuildContext context,String docid,Question que) {
                     if (input == null || input.isEmpty) {
                       return 'Please enter the question';
                     } else {
-                      question=input;
-
+                      question = input;
                     }
                     return null;
                   }),
               const SizedBox(
                 height: 19,
               ),
+
               Expanded(
                 child: TextFormField(
-                  initialValue: que.ans,
+                    key: Key(code.toString()), // <- Magic!
+                    initialValue: code.toString(),
+
                     textAlignVertical: TextAlignVertical.top,
                     minLines: null,
                     expands: true,
@@ -963,15 +996,16 @@ showAlertDialog3edit(BuildContext context,String docid,Question que) {
                       // enabledBorder: const UnderlineInputBorder(
                       //   borderSide: BorderSide(color: Palette.textd),
                       // ),
-                      enabledBorder:  const OutlineInputBorder(
-                        borderSide: BorderSide(color: Palette.textd, width: 2.0),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Palette.textd, width: 2.0),
                       ),
                       border: const OutlineInputBorder(
                         borderSide:
                         BorderSide(color: Colors.grey, width: 2.0),
                       ),
                       contentPadding: const EdgeInsets.all(10),
-                      focusedBorder:  const OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide:
                         BorderSide(color: Palette.main, width: 2.0),
                       ),
@@ -992,7 +1026,7 @@ showAlertDialog3edit(BuildContext context,String docid,Question que) {
                       if (input == null || input.isEmpty) {
                         return 'Enter the code';
                       } else {
-                        code=input;
+                        code = input;
                       }
                       return null;
                     }),
@@ -1005,7 +1039,7 @@ showAlertDialog3edit(BuildContext context,String docid,Question que) {
       continueButton,
     ],
   );
-
+});
   showDialog(
     context: context,
     builder: (BuildContext context) {
