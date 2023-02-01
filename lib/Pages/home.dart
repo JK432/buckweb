@@ -55,66 +55,66 @@ class _HomeState extends State<Home> {
               },
             )
           : Container(),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              toolbarHeight: 0.0,
-              collapsedHeight: 0.0,
-              expandedHeight: MediaQuery.of(context).size.height,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  background: Center(
-                    child: Container(
-                      child: DefaultTextStyle(
-                        style: GoogleFonts.signikaNegative(
-                            fontSize: 30.0, color: Palette.textd),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "#BUCK",
-                              style: GoogleFonts.anton(
-                                  color: Palette.textd,
-                                  fontSize:width>491?200:width/4,
-
-                              ),
-                            ),
-                            AnimatedTextKit(
-                              pause: const Duration(milliseconds: 2000),
-                              repeatForever: true,
-                              animatedTexts: [
-                                TypewriterAnimatedText(
-                                  'बक जीवन में आपका स्वागत है',
-                                  speed: const Duration(milliseconds: 100),
-                                ),
-                                TypewriterAnimatedText(
-                                  'bienvenue en buck life',
-                                  speed: const Duration(milliseconds: 100),
-                                ),
-                                TypewriterAnimatedText(
-                                  'Bienvenido a la buck life',
-                                  speed: const Duration(milliseconds: 100),
-                                ),
-                                TypewriterAnimatedText(
-                                  '벅 라이프에 오신 것을 환영합니다',
-                                  speed: const Duration(milliseconds: 100),
-                                ),
-                              ],
-                              onTap: () {
-
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )),
-            ),
-          ];
-        },
+      // body: NestedScrollView(
+        // headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        //   return <Widget>[
+        //     SliverAppBar(
+        //       toolbarHeight: 0.0,
+        //       collapsedHeight: 0.0,
+        //       expandedHeight: MediaQuery.of(context).size.height,
+        //       floating: false,
+        //       pinned: true,
+        //       flexibleSpace: FlexibleSpaceBar(
+        //           centerTitle: true,
+        //           background: Center(
+        //             child: Container(
+        //               child: DefaultTextStyle(
+        //                 style: GoogleFonts.signikaNegative(
+        //                     fontSize: 30.0, color: Palette.textd),
+        //                 child: Column(
+        //                   mainAxisAlignment: MainAxisAlignment.center,
+        //                   children: [
+        //                     Text(
+        //                       "#BUCK",
+        //                       style: GoogleFonts.anton(
+        //                           color: Palette.textd,
+        //                           fontSize:width>491?200:width/4,
+        //
+        //                       ),
+        //                     ),
+        //                     AnimatedTextKit(
+        //                       pause: const Duration(milliseconds: 2000),
+        //                       repeatForever: true,
+        //                       animatedTexts: [
+        //                         TypewriterAnimatedText(
+        //                           'बक जीवन में आपका स्वागत है',
+        //                           speed: const Duration(milliseconds: 100),
+        //                         ),
+        //                         TypewriterAnimatedText(
+        //                           'bienvenue en buck life',
+        //                           speed: const Duration(milliseconds: 100),
+        //                         ),
+        //                         TypewriterAnimatedText(
+        //                           'Bienvenido a la buck life',
+        //                           speed: const Duration(milliseconds: 100),
+        //                         ),
+        //                         TypewriterAnimatedText(
+        //                           '벅 라이프에 오신 것을 환영합니다',
+        //                           speed: const Duration(milliseconds: 100),
+        //                         ),
+        //                       ],
+        //                       onTap: () {
+        //
+        //                       },
+        //                     ),
+        //                   ],
+        //                 ),
+        //               ),
+        //             ),
+        //           )),
+        //     ),
+        //   ];
+        // },
         body: Container(
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
@@ -271,7 +271,7 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-      ),
+      // ),
     );
   }
 
