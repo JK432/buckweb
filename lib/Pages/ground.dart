@@ -1,36 +1,123 @@
+
+import 'dart:math';
+import 'package:bucklite/Functions/Authentication.dart';
 import 'package:bucklite/Functions/crud.dart';
 import 'package:bucklite/Widgets/alert.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bucklite/Widgets/snackbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Functions/color.dart';
 import '../Functions/misfun.dart';
 import '../Widgets/button.dart';
-
 class Ground extends StatefulWidget {
-  const Ground({Key? key, this.crudact = false, required this.docid})
+  const Ground({Key? key, this.crudact = false, required this.docid,required this.isbox})
       : super(key: key);
   final bool crudact;
   final String docid;
+  final bool isbox;
+
   @override
   State<Ground> createState() => _GroundState();
 }
-
+String name="";
 class _GroundState extends State<Ground> {
+  void namefun()async{
+    final prefs = await SharedPreferences.getInstance();
+    final String? action = prefs.getString('name');
+    if(action!=null){
+      print("called");
+      setState(() {
+        name = action;
+      });
+
+    }else{
+      print("called2");
+      setState(() {
+        name = "AnoniRat";
+      });
+
+    }
+  }
+  void callad()async{
+
+    List<Ads> m=[];
+    List<Ads> l = await readaddis();
+    l.forEach((element) {
+      if(element.vis){
+        m.add(element);
+      } });
+
+    Random r = Random();
+    Future.delayed(Duration(seconds: 3), (){showAlertDialogad(context ,m[r.nextInt(m.length)]);} );
+  }
+  @override
+  void initState() {
+// Obtain shared preferences.
+
+    callad();
+    namefun();
+    //Future.delayed(Duration(seconds: 10), (){showAlertDialogad(context);} );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: widget.crudact
+      floatingActionButton:widget.isbox?
+
+      StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection("box")
+            .doc("boxdoc")
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data?.data() as Map<String ,dynamic>;
+            return data["vis"]?FloatingActionButton(
+                  child: const Icon(
+                    Icons.add,
+                    size: 30,
+                  ),
+                onPressed: (){
+                    user u = Authentication().userData();
+                    widget.crudact?showAlertDialog3box(context,u.email.split('@')[0]):showAlertDialog3box(context,name);
+
+                }):Container();
+
+          } else {
+            return Container();
+          }
+        },
+      )
+     // StreamBuilder(
+          // stream:FirebaseFirestore.instance
+          //     .collection("")
+          //     .doc("document_id")
+          //     .snapshots() ,
+          // builder:(context,snapshot){
+          //   return FloatingActionButton(onPressed: (){});
+          // } )
+      // FloatingActionButton(
+      //     child: const Icon(
+      //       Icons.add,
+      //       size: 30,
+      //     ),
+      //     onPressed: () {
+      //       readopen();
+      //       //showAlertDialog3(context, widget.docid);
+      //     })
+          : widget.crudact
           ? FloatingActionButton(
-              child: const Icon(
-                Icons.add,
-                size: 30,
-              ),
-              onPressed: () {
-                showAlertDialog3(context, widget.docid);
-              })
+          child: const Icon(
+            Icons.add,
+            size: 30,
+          ),
+          onPressed: () {
+            showAlertDialog3(context, widget.docid);
+          })
           : Container(),
       body: SingleChildScrollView(
         child: Container(
@@ -38,24 +125,87 @@ class _GroundState extends State<Ground> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: IconButton(
-                  splashRadius: 1,
-                  iconSize: 25,
-                  onPressed: () {
-                    Navigator.of(context).pop();
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(
+                      splashRadius: 1,
+                      iconSize: 25,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: Palette.main,
+                        size: 30,
+                      )),
+                ),
+                SizedBox(width: 20,),
+                widget.isbox?widget.crudact?Container():TextButton(onPressed: (){
+                  showAlertonname(context,name);
+
+                } , child: Text("Hai " + name,style: GoogleFonts.signikaNegative(
+                    fontSize: 25.0, color: Palette.textd) )):Container(),
+        SizedBox(width: 20,),
+                widget.isbox?widget.crudact? Text("isOpen:",style: GoogleFonts.signikaNegative(
+                    fontSize: 25.0, color: Palette.textd) ):Container():Container(),
+                SizedBox(width: 1,),
+        widget.isbox?widget.crudact?StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection("box")
+              .doc("boxdoc")
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final data = snapshot.data?.data() as Map<String ,dynamic>;
+              bool val = data["vis"];
+              return
+
+                Switch(
+                  value:val ,
+
+                  onChanged: (value) {
+                    Box b = Box();
+                    b.vis=value;
+                    FirebaseFirestore.instance
+                        .collection("box")
+                        .doc("boxdoc")
+                        .set(b.toJson());
+                    setState(() {
+                      val= value;
+
+                    });
                   },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Palette.main,
-                    size: 30,
-                  )),
+                  activeTrackColor: Palette.main,
+                  activeColor: Palette.mainthf,
+                );
+
+            } else {
+              return Container();
+            }
+          },
+        ):Container():Container(),
+
+
+        ],
             ),
+
+
+
+
+
+
+
+
+
+
+
+
             Container(
               width: MediaQuery.of(context).size.width,
               child: StreamBuilder<List<Question>>(
-                stream: readQus(widget.docid),
+                stream: widget.isbox?readboxQus():readQus(widget.docid),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final quiz = snapshot.data;
@@ -164,7 +314,22 @@ class _GroundState extends State<Ground> {
                             fontSize: 30.0, color: Palette.textd)),
                   ),
                 ),
-                widget.crudact?Align(alignment: Alignment.topRight,child:IconButton(
+                widget.crudact?widget.isbox?
+                    //with box
+                Align(alignment: Alignment.topRight,child:IconButton(
+                    splashRadius: 1,
+                    iconSize: 30,
+                    onPressed: () {
+                      showAlertDialog3boxedit(context, name, que);
+                      //showAlertDialog3edit(context,widget.docid, que);
+                    },
+                    icon: Icon(
+                      Icons.build_circle_outlined,
+                      color: Palette.textd,
+                      size: 30,
+                    )) ,)
+                    :
+                Align(alignment: Alignment.topRight,child:IconButton(
                     splashRadius: 1,
                     iconSize: 30,
                     onPressed: () {
@@ -179,7 +344,9 @@ class _GroundState extends State<Ground> {
               ],
             ),
             subtitle: Container(
-              child: Text(que.auth + "  .  " + timeAgo(DateTime.parse(que.date)),
+              child: widget.isbox?Text(que.auth + "  .  " + que.date,
+                  style: GoogleFonts.signikaNegative(
+                      fontSize: 15.0, color: Palette.textd)):Text(que.auth + "  .  " + timeAgo(DateTime.parse(que.date)),
                   style: GoogleFonts.signikaNegative(
                       fontSize: 15.0, color: Palette.textd)),
             ),

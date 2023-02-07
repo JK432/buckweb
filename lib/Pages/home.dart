@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
+import "dart:math";
 import 'package:bucklite/Functions/crud.dart';
 import 'package:bucklite/Pages/ground.dart';
 import 'package:bucklite/Widgets/alert.dart';
@@ -6,7 +9,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Functions/color.dart';
+import '../Widgets/button.dart';
 
 
 class Home extends StatefulWidget {
@@ -44,7 +49,31 @@ class _HomeState extends State<Home> {
     }
   }
 
+void callad()async{
+  List<Ads> m=[];
+  List<Ads> l = await readaddis();
+  l.forEach((element) {
+    if(element.vis){
+      m.add(element);
+    } });
+
+  Random r = Random();
+  Future.delayed(Duration(seconds: 3), (){showAlertDialogad(context ,m[r.nextInt(m.length)]);} );
+}
+
+@override
+  void initState() {
+
+callad();
+  //Future.delayed(Duration(seconds: 10), (){showAlertDialogad(context);} );
+  super.initState();
+  }
+
+
+@override
   Widget build(BuildContext context) {
+    final keyIsFirstLoaded = 'is_first_loaded';
+
     double width =MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: widget.crudact
@@ -123,50 +152,33 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PopupMenuButton<int>(
-                  padding: const EdgeInsets.all(5),
-                  tooltip: "",
-                  iconSize: 50,
-                  splashRadius: 1,
-                  color: Palette.main,
+                Row(
+                  children: [
+                    PopupMenuButton<int>(
+                      padding: const EdgeInsets.all(5),
+                      tooltip: "",
+                      iconSize: 50,
+                      splashRadius: 1,
+                      color: Palette.main,
 
-                  icon: Icon(
-                    size: 40,
-                    Icons.account_circle_outlined,
-                    color: Palette.main,
-                  ),
-                  itemBuilder: (context) {
-                    return [
-                      widget.crudact
-                          ? PopupMenuItem<int>(
-                              value: 1,
-                              child: Container(
-                                  child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Dashboard",
-                                    style: GoogleFonts.signikaNegative(
-                                        fontSize: 23,
-                                        color: Palette.textd,
-                                        height: 1),
-                                  ),
-                                ],
-                              )),
-                            )
-                          : PopupMenuItem<int>(
-                              value: 0,
-                              child: Container(
-                                  height: 60,
-                                  child: Column(
+                      icon: Icon(
+                        size: 40,
+                        Icons.account_circle_outlined,
+                        color: Palette.main,
+                      ),
+                      itemBuilder: (context) {
+                        return [
+                          widget.crudact
+                              ? PopupMenuItem<int>(
+                                  value: 1,
+                                  child: Container(
+                                      child: Column(
                                     children: [
                                       const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
-                                        adminmsg,
+                                        "Dashboard",
                                         style: GoogleFonts.signikaNegative(
                                             fontSize: 23,
                                             color: Palette.textd,
@@ -174,11 +186,73 @@ class _HomeState extends State<Home> {
                                       ),
                                     ],
                                   )),
-                            ),
-                    ];
-                  },
-                  onSelected: (v) => _onSelected(v, context),
-                  // onSelected: (v) => _onSelected(v, context)
+                                )
+                              : PopupMenuItem<int>(
+                                  value: 0,
+                                  child: Container(
+                                      height: 60,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            adminmsg,
+                                            style: GoogleFonts.signikaNegative(
+                                                fontSize: 23,
+                                                color: Palette.textd,
+                                                height: 1),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                        ];
+                      },
+                      onSelected: (v) => _onSelected(v, context),
+                      // onSelected: (v) => _onSelected(v, context)
+                    ),
+
+
+            InkWell(
+            onTap: ()  {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => widget.crudact?Ground(docid: "boxdoc",crudact: true,isbox: true,): Ground(docid: "boxdoc",crudact: false,isbox: true,) ));
+    },
+      child:Container(
+        height: 32,
+        width: 225,
+child: Row(
+  children: [
+    SizedBox(width: 20,),
+        Text("Try New BuckBox",style: GoogleFonts.signikaNegative(
+
+        fontSize: 25.0, color: Palette.textd)),
+  ],
+),
+        decoration: BoxDecoration(
+           gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          stops: [
+            0.1,
+            0.4,
+            0.6,
+            0.9,
+          ],
+          colors: [
+            Colors.yellow,
+            Colors.red,
+            Colors.indigo,
+            Colors.teal,
+          ],
+        ),
+
+
+          borderRadius:BorderRadius.circular(25),
+      ) ,)
+            )],
                 ),
 
 
@@ -339,7 +413,7 @@ if(sub.vis){
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => widget.crudact?Ground(docid: sub.id,crudact: true,): Ground(docid: sub.id,crudact: false,) ));
+            builder: (context) => widget.crudact?Ground(docid: sub.id,crudact: true,isbox:false): Ground(docid: sub.id,crudact: false,isbox: false,) ));
 
   },
 );
@@ -443,7 +517,7 @@ else{
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => widget.crudact?Ground(docid: sub.id,crudact: true,): Ground(docid: sub.id,crudact: false,) ));
+                builder: (context) => widget.crudact?Ground(docid: sub.id,crudact: true,isbox: false,): Ground(docid: sub.id,crudact: false,isbox:false) ));
 
       },
     );

@@ -1,10 +1,12 @@
 import 'package:bucklite/Functions/Authentication.dart';
+import 'package:bucklite/Pages/adsground.dart';
 import 'package:bucklite/Widgets/button.dart';
 import 'package:bucklite/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Functions/color.dart';
+import 'ground.dart';
 import 'home.dart';
 
 class Dash extends StatefulWidget {
@@ -120,7 +122,13 @@ class _DashState extends State<Dash> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Ground(docid: "boxdoc",crudact: true,isbox: true,) ));
+
+                        },
                         child: const RectButton(title: "Buck Box ",),
                       ),
                     ),
@@ -129,6 +137,19 @@ class _DashState extends State<Dash> {
                       child: InkWell(
                         onTap: (){},
                         child: const RectButton(title: "Buck Ans",),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Adsground()));
+
+                        },
+                        child: const RectButton(title: "Ads Ctrl",),
                       ),
                     ),
                   ]
