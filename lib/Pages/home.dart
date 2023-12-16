@@ -255,11 +255,6 @@ child: Row(
             )],
                 ),
 
-
-
-
-
-
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: StreamBuilder<List<Subject>>(
@@ -290,42 +285,7 @@ child: Row(
                               ] + [SizedBox(height: 30,)],
                             ),
                           );
-                          // return StaggeredGridView.count(
-                          //
-                          //   crossAxisCount: 2,
-                          //   children: quiz.map(buildGridItem).toList(),
-                          //   staggeredTiles: generateRandomTiles(quiz.length),
-                          //
-                          // );
 
-
-
-                          // return SingleChildScrollView(
-                          //   scrollDirection: Axis.vertical,
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.symmetric(horizontal:20 ),
-                          //     child: Center(
-                          //       child: Wrap(
-                          //           crossAxisAlignment: WrapCrossAlignment.start,
-                          //           children: quiz.map(buildSub).toList()),
-                          //     ),
-                          //   ),
-                          // );
-                          // Container(
-                          //   decoration: const BoxDecoration(color: Palette.darkbasic),
-                          //   width: MediaQuery.of(context).size.width,
-                          //   child: Align(
-                          //     alignment: Alignment.topCenter,
-                          //     child: SingleChildScrollView(
-                          //       child: Wrap(
-                          //         children: <Widget>[
-                          //
-                          //         ] +
-                          //             quiz.map(buildQuiz).toList(),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // );
                         }
                       }
 
@@ -403,7 +363,7 @@ if(sub.vis){
       ],
     ),
     decoration: BoxDecoration(
-      image:DecorationImage(image:CachedNetworkImageProvider(errorListener: (){sub.url=" ";print("fixed");},sub.url),fit: BoxFit.cover),
+      image:DecorationImage(image:CachedNetworkImageProvider(errorListener: (error){sub.url=" ";print("fixed");},sub.url),fit: BoxFit.cover),
       borderRadius: BorderRadius.circular(10),
     ),
     height: 400,
@@ -507,7 +467,7 @@ else{
           ],
         ),
         decoration: BoxDecoration(
-          image:DecorationImage(image:CachedNetworkImageProvider(errorListener: (){sub.url=" ";print("fixed");},sub.url),fit: BoxFit.cover),
+          image:DecorationImage(image:CachedNetworkImageProvider(errorListener: (error){sub.url=" ";print("fixed");},sub.url),fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(10),
         ),
         height: 400,
@@ -530,28 +490,6 @@ else{
 
 
 }
-//
-// Random random = new Random();
-//
-// Widget buildSub(Subject sub) => Padding(
-//       padding: const EdgeInsets.all(8.0),
-//       child: Expanded(
-//         flex: 3,
-//         child: Container(
-//           height: 200,
-//           width: 350,
-//           decoration: BoxDecoration(
-//               color: col[random.nextInt(5)],
-//               borderRadius: BorderRadius.circular(5)),
-//           child: Column(
-//             children: [Text(sub.title)],
-//           ),
-//         ),
-//       ),
-//     );
-
-
-
 
 
 
